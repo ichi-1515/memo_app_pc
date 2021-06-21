@@ -8,17 +8,22 @@ class Character extends StatelessWidget {
         title: Text('Character'),
       ),
       body: Container(
-        child: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                'images/cat_b.GIF',
-                height: 250,
-                width: 250,
-              ),
-            ],
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("bg_1.png"),
           ),
         ),
+        // child: Center(
+        //   child: Column(
+        //     children: [
+        //       Image.asset(
+        //         'images/cat_b.GIF',
+        //         height: 250,
+        //         width: 250,
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
