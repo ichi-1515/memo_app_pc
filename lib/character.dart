@@ -80,7 +80,7 @@ class CharacterState extends State<Character> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'エサLv',
+                        'なまえ Lv',
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,

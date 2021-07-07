@@ -4,8 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add/edit.dart';
 import 'character.dart';
-
-// test test
+import 'color.dart';
 
 void main() => runApp(MyApp());
 
@@ -93,7 +92,10 @@ class MemoListState extends State<MemoList> {
                 ),
               ),
               onTap: () {
-                // Update the state of the app.
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Color()),
+                );
               },
             ),
             ListTile(
