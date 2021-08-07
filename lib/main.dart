@@ -27,6 +27,7 @@ class MemoListState extends State<MemoList> {
   bool _loading = true;
   final _biggerFont = const TextStyle(fontSize: 18.0);
   bool _comment = true;
+  int _character = 1;
 
   @override
   void initState() {
@@ -132,7 +133,7 @@ class MemoListState extends State<MemoList> {
                   commentChange();
                 },
                 child: Image.asset(
-                  'images/cat_b.GIF',
+                  'images/cat_1.GIF',
                   height: 100,
                   width: 100,
                 ),

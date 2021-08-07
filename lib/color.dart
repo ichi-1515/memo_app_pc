@@ -40,7 +40,7 @@ class ColorState extends State<Color> {
                             color: Colors.white,
                           ),
                           child: Image.asset(
-                            'images/cat_b.GIF',
+                            'images/cat_1.GIF',
                             height: 250,
                             width: 250,
                           ),
@@ -59,7 +59,7 @@ class ColorState extends State<Color> {
                             color: Colors.white,
                           ),
                           child: Image.asset(
-                            'images/cat_o.GIF',
+                            'images/cat_2.GIF',
                             height: 250,
                             width: 250,
                           ),
@@ -86,7 +86,7 @@ class ColorState extends State<Color> {
                             color: Colors.white,
                           ),
                           child: Image.asset(
-                            'images/cat_b.GIF',
+                            'images/hatena.PNG',
                             height: 250,
                             width: 250,
                           ),
@@ -105,7 +105,7 @@ class ColorState extends State<Color> {
                             color: Colors.white,
                           ),
                           child: Image.asset(
-                            'images/cat_o.GIF',
+                            'images/hatena.PNG',
                             height: 250,
                             width: 250,
                           ),

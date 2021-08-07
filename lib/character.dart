@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'color.dart';
 
 class CharacterState extends State<Character> {
   bool _comment = true;
@@ -37,7 +38,12 @@ class CharacterState extends State<Character> {
                         child: RaisedButton(
                           color: Colors.grey,
                           shape: const CircleBorder(),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Color()),
+                            );
+                          },
                           child: Icon(
                             Icons.format_color_fill,
                             color: Colors.white,
@@ -130,7 +136,7 @@ class CharacterState extends State<Character> {
                   },
                   child: Center(
                     child: Image.asset(
-                      'images/cat_b.GIF',
+                      'images/cat_1.GIF',
                       height: 250,
                       width: 250,
                     ),

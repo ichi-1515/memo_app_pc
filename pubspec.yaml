@@ -46,6 +46,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/cat_b.GIF
-    - images/cat_o.GIF
+    - images/cat_1.GIF
+    - images/cat_2.GIF
     - images/bg_1.png
+    - images/hatena.PNG
