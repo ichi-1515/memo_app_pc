@@ -21,13 +21,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
+int color = 1;
+
 class MemoListState extends State<MemoList> {
   var _memoList = new List<String>();
   var _currentIndex = -1;
   bool _loading = true;
   final _biggerFont = const TextStyle(fontSize: 18.0);
   bool _comment = true;
-  int _character = 1;
 
   @override
   void initState() {
@@ -78,10 +79,7 @@ class MemoListState extends State<MemoList> {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Character()),
-                );
+                pushWithReloadByReturnCharacter(context);
               },
             ),
             ListTile(
@@ -93,10 +91,7 @@ class MemoListState extends State<MemoList> {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Color()),
-                );
+                pushWithReloadByReturnColor(context);
               },
             ),
             ListTile(
@@ -133,7 +128,7 @@ class MemoListState extends State<MemoList> {
                   commentChange();
                 },
                 child: Image.asset(
-                  'images/cat_1.GIF',
+                  'images/cat_$color.GIF',
                   height: 100,
                   width: 100,
                 ),
@@ -149,18 +144,6 @@ class MemoListState extends State<MemoList> {
         child: Icon(Icons.add),
       ),
     );
-  }
-
-  void commentChange() {
-    if (_comment == true) {
-      setState(() {
-        _comment = false;
-      });
-    } else {
-      setState(() {
-        _comment = true;
-      });
-    }
   }
 
   void loadMemoList() {
@@ -249,6 +232,45 @@ class MemoListState extends State<MemoList> {
         }));
       },
     );
+  }
+
+  // コメント表示非表示
+  void commentChange() {
+    if (_comment == true) {
+      setState(() {
+        _comment = false;
+      });
+    } else {
+      setState(() {
+        _comment = true;
+      });
+    }
+  }
+
+  void pushWithReloadByReturnColor(BuildContext context) async {
+    final result = await Navigator.push( // [*3]
+      context,
+      new MaterialPageRoute<bool>( // [*4]
+        builder: (BuildContext context) => Color(),
+      ),
+    );
+
+    if (result) { // [*5]
+      setState(() {});
+    }
+  }
+
+  void pushWithReloadByReturnCharacter(BuildContext context) async {
+    final result = await Navigator.push( // [*3]
+      context,
+      new MaterialPageRoute<bool>( // [*4]
+        builder: (BuildContext context) => Character(),
+      ),
+    );
+
+    if (result) { // [*5]
+      setState(() {});
+    }
   }
 }
 

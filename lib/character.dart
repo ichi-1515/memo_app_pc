@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 import 'color.dart';
 
 class CharacterState extends State<Character> {
@@ -9,6 +10,11 @@ class CharacterState extends State<Character> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Character'),
+        automaticallyImplyLeading: false,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context, true),
+        ),
       ),
 
       // 背景画像
@@ -39,10 +45,7 @@ class CharacterState extends State<Character> {
                           color: Colors.grey,
                           shape: const CircleBorder(),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Color()),
-                            );
+                            pushWithReloadByReturn(context);
                           },
                           child: Icon(
                             Icons.format_color_fill,
@@ -136,7 +139,7 @@ class CharacterState extends State<Character> {
                   },
                   child: Center(
                     child: Image.asset(
-                      'images/cat_1.GIF',
+                      'images/cat_$color.GIF',
                       height: 250,
                       width: 250,
                     ),
@@ -159,6 +162,22 @@ class CharacterState extends State<Character> {
       setState(() {
         _comment = true;
       });
+    }
+  }
+
+  void pushWithReloadByReturn(BuildContext context) async {
+    final result = await Navigator.push(
+      // [*3]
+      context,
+      new MaterialPageRoute<bool>(
+        // [*4]
+        builder: (BuildContext context) => Color(),
+      ),
+    );
+
+    if (result) {
+      // [*5]
+      setState(() {});
     }
   }
 }

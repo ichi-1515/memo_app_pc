@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class ColorState extends State<Color> {
   @override
@@ -40,13 +41,14 @@ class ColorState extends State<Color> {
                             color: Colors.white,
                           ),
                           child: Image.asset(
-                            'images/cat_1.GIF',
+                            'images/cat_1a.PNG',
                             height: 250,
                             width: 250,
                           ),
                         ),
-                        onTap: (){
+                        onTap: () {
                           // 色変更
+                          colorChange1();
                         },
                       ),
                       // キャラ2
@@ -59,13 +61,14 @@ class ColorState extends State<Color> {
                             color: Colors.white,
                           ),
                           child: Image.asset(
-                            'images/cat_2.GIF',
+                            'images/cat_2a.PNG',
                             height: 250,
                             width: 250,
                           ),
                         ),
-                        onTap: (){
+                        onTap: () {
                           // 色変更
+                          colorChange2();
                         },
                       ),
                     ],
@@ -91,7 +94,7 @@ class ColorState extends State<Color> {
                             width: 250,
                           ),
                         ),
-                        onTap: (){
+                        onTap: () {
                           // 色変更
                         },
                       ),
@@ -110,11 +113,32 @@ class ColorState extends State<Color> {
                             width: 250,
                           ),
                         ),
-                        onTap: (){
+                        onTap: () {
                           // 色変更
                         },
                       ),
                     ],
+                  ),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    characterChange();
+                  },
+                  color: Colors.grey,
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                    ),
+                  ),
+                ),
+                // キャラ
+                GestureDetector(
+                  child: Image.asset(
+                    'images/cat_$color.GIF',
+                    height: 100,
+                    width: 100,
                   ),
                 ),
               ],
@@ -123,6 +147,24 @@ class ColorState extends State<Color> {
         ),
       ),
     );
+  }
+
+  void colorChange1() {
+    setState(() {
+      color = 1;
+      print(color);
+    });
+  }
+
+  void colorChange2() {
+    setState(() {
+      color = 2;
+      print(color);
+    });
+  }
+
+  void characterChange() {
+    Navigator.pop(context, true);
   }
 }
 
