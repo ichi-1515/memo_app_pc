@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'color.dart';
+import 'food.dart';
 
 class CharacterState extends State<Character> {
   bool _comment = true;
@@ -45,7 +46,7 @@ class CharacterState extends State<Character> {
                           color: Colors.grey,
                           shape: const CircleBorder(),
                           onPressed: () {
-                            pushWithReloadByReturn(context);
+                            pushWithReloadByReturnColor(context);
                           },
                           child: Icon(
                             Icons.format_color_fill,
@@ -70,7 +71,9 @@ class CharacterState extends State<Character> {
                         child: RaisedButton(
                           color: Colors.grey,
                           shape: const CircleBorder(),
-                          onPressed: () {},
+                          onPressed: () {
+                            pushWithReloadByReturnFood(context);
+                          },
                           child: Icon(
                             Icons.set_meal_outlined,
                             color: Colors.white,
@@ -89,14 +92,14 @@ class CharacterState extends State<Character> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'なまえ Lv',
+                        'なまえLv ',
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        '20',
+                        '20 ',
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
@@ -165,13 +168,29 @@ class CharacterState extends State<Character> {
     }
   }
 
-  void pushWithReloadByReturn(BuildContext context) async {
+  void pushWithReloadByReturnColor(BuildContext context) async {
     final result = await Navigator.push(
       // [*3]
       context,
       new MaterialPageRoute<bool>(
         // [*4]
         builder: (BuildContext context) => Color(),
+      ),
+    );
+
+    if (result) {
+      // [*5]
+      setState(() {});
+    }
+  }
+
+  void pushWithReloadByReturnFood(BuildContext context) async {
+    final result = await Navigator.push(
+      // [*3]
+      context,
+      new MaterialPageRoute<bool>(
+        // [*4]
+        builder: (BuildContext context) => Food(),
       ),
     );
 

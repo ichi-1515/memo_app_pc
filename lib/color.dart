@@ -136,7 +136,7 @@ class ColorState extends State<Color> {
                 // キャラ
                 GestureDetector(
                   child: Image.asset(
-                    'images/cat_$color.GIF',
+                    'images/cat_$colorSub.GIF',
                     height: 100,
                     width: 100,
                   ),
@@ -149,21 +149,26 @@ class ColorState extends State<Color> {
     );
   }
 
+  int colorSub = color;
+
   void colorChange1() {
     setState(() {
-      color = 1;
-      print(color);
+      colorSub = 1;
+      print(colorSub);
     });
   }
 
   void colorChange2() {
     setState(() {
-      color = 2;
-      print(color);
+      colorSub = 2;
+      print(colorSub);
     });
   }
 
   void characterChange() {
+    color = colorSub;
+    print(color);
+    print("変更しました");
     Navigator.pop(context, true);
   }
 }

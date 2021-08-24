@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'add/edit.dart';
 import 'character.dart';
 import 'color.dart';
+import 'food.dart';
 
 void main() => runApp(MyApp());
 
@@ -104,6 +105,7 @@ class MemoListState extends State<MemoList> {
               ),
               onTap: () {
                 // Update the state of the app.
+                pushWithReloadByReturnFood(context);
               },
             ),
           ],
@@ -248,27 +250,49 @@ class MemoListState extends State<MemoList> {
   }
 
   void pushWithReloadByReturnColor(BuildContext context) async {
-    final result = await Navigator.push( // [*3]
+    final result = await Navigator.push(
+      // [*3]
       context,
-      new MaterialPageRoute<bool>( // [*4]
+      new MaterialPageRoute<bool>(
+        // [*4]
         builder: (BuildContext context) => Color(),
       ),
     );
 
-    if (result) { // [*5]
+    if (result) {
+      // [*5]
       setState(() {});
     }
   }
 
   void pushWithReloadByReturnCharacter(BuildContext context) async {
-    final result = await Navigator.push( // [*3]
+    final result = await Navigator.push(
+      // [*3]
       context,
-      new MaterialPageRoute<bool>( // [*4]
+      new MaterialPageRoute<bool>(
+        // [*4]
         builder: (BuildContext context) => Character(),
       ),
     );
 
-    if (result) { // [*5]
+    if (result) {
+      // [*5]
+      setState(() {});
+    }
+  }
+
+  void pushWithReloadByReturnFood(BuildContext context) async {
+    final result = await Navigator.push(
+      // [*3]
+      context,
+      new MaterialPageRoute<bool>(
+        // [*4]
+        builder: (BuildContext context) => Food(),
+      ),
+    );
+
+    if (result) {
+      // [*5]
       setState(() {});
     }
   }
