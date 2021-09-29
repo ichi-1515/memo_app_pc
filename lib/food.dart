@@ -117,7 +117,9 @@ class FoodState extends State<Food> {
                   padding: const EdgeInsets.only(top: 25),
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   color: Colors.redAccent,
                   child: Text(
                     'キャンセル',

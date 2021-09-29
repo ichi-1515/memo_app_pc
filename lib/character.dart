@@ -5,6 +5,7 @@ import 'food.dart';
 
 class CharacterState extends State<Character> {
   bool _comment = true;
+  int lv = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +100,7 @@ class CharacterState extends State<Character> {
                         ),
                       ),
                       Text(
-                        '20 ',
+                        "$lv",
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,

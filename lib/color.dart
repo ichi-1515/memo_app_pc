@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 
 class ColorState extends State<Color> {
+
+  MemoListState memoListState = MemoListState();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,6 +170,7 @@ class ColorState extends State<Color> {
 
   void characterChange() {
     color = colorSub;
+    memoListState.setCharacter();
     print(color);
     print("変更しました");
     Navigator.pop(context, true);

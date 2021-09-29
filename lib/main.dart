@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-int color = 1;
+int color;
 
 class MemoListState extends State<MemoList> {
   var _memoList = new List<String>();
@@ -30,22 +30,44 @@ class MemoListState extends State<MemoList> {
   bool _loading = true;
   final _biggerFont = const TextStyle(fontSize: 18.0);
   bool _comment = true;
+  DateTime now = DateTime.now();
 
   @override
   void initState() {
     super.initState();
     this.loadMemoList();
+    this._getCharacter();
   }
 
   @override
   Widget build(BuildContext context) {
     final title = "Home";
+    // WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
+    //   context: context,
+    //   builder: (_) {
+    //     return AlertDialog(
+    //       title: Center(child: Text("$now"),),
+    //       content: Text("ここにメッセージが表示される"),
+    //       actions: <Widget>[
+    //         FlatButton(
+    //           child: Text("キャンセル"),
+    //           onPressed: () => Navigator.pop(context),
+    //         ),
+    //         FlatButton(
+    //           child: Text("OK"),
+    //           onPressed: () => Navigator.pop(context),
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // ));
     if (_loading) {
       return Scaffold(
-          appBar: AppBar(
-            title: Text(title),
-          ),
-          body: CircularProgressIndicator());
+        appBar: AppBar(
+          title: Text(title),
+        ),
+        body: CircularProgressIndicator(),
+      );
     }
     return Scaffold(
       appBar: AppBar(
@@ -249,6 +271,7 @@ class MemoListState extends State<MemoList> {
     }
   }
 
+  // キャラ色引継ぎ
   void pushWithReloadByReturnColor(BuildContext context) async {
     final result = await Navigator.push(
       // [*3]
@@ -296,6 +319,21 @@ class MemoListState extends State<MemoList> {
       setState(() {});
     }
   }
+
+  // キャラ色読み込み
+  void _getCharacter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      color = prefs.getInt('characterCount') ?? 1;
+    });
+  }
+  // キャラ色保存
+  void setCharacter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('characterCount', color);
+  }
+
+
 }
 
 class MemoList extends StatefulWidget {
