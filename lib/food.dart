@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 
 class FoodState extends State<Food> {
+
+  MemoListState memoListState = MemoListState();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +89,7 @@ class FoodState extends State<Food> {
                     RaisedButton(
                       onPressed: () {
                         // 1個
+                        oneFood();
                       },
                       color: Colors.grey,
                       child: Text(
@@ -136,6 +140,17 @@ class FoodState extends State<Food> {
         ),
       ),
     );
+  }
+
+  // エサ1個あげる
+  void oneFood() {
+    if(lvFood > 0){
+      lvFood--;
+      print(lvFood);
+    }
+    else{
+
+    }
   }
 }
 

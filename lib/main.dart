@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import "package:intl/intl.dart";
+
 import 'add/edit.dart';
 import 'character.dart';
 import 'color.dart';
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
 }
 
 int color;
+int beforeTime;
+int lvFood;
 
 class MemoListState extends State<MemoList> {
   var _memoList = new List<String>();
@@ -30,37 +34,21 @@ class MemoListState extends State<MemoList> {
   bool _loading = true;
   final _biggerFont = const TextStyle(fontSize: 18.0);
   bool _comment = true;
-  DateTime now = DateTime.now();
+  var nowTime = DateFormat('yyyyMMdd').format(DateTime.now());
+
 
   @override
   void initState() {
     super.initState();
     this.loadMemoList();
     this._getCharacter();
+    this._getTime();
+    this._getLvFood();
   }
 
   @override
   Widget build(BuildContext context) {
     final title = "Home";
-    // WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
-    //   context: context,
-    //   builder: (_) {
-    //     return AlertDialog(
-    //       title: Center(child: Text("$now"),),
-    //       content: Text("ここにメッセージが表示される"),
-    //       actions: <Widget>[
-    //         FlatButton(
-    //           child: Text("キャンセル"),
-    //           onPressed: () => Navigator.pop(context),
-    //         ),
-    //         FlatButton(
-    //           child: Text("OK"),
-    //           onPressed: () => Navigator.pop(context),
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // ));
     if (_loading) {
       return Scaffold(
         appBar: AppBar(
@@ -128,6 +116,33 @@ class MemoListState extends State<MemoList> {
               onTap: () {
                 // Update the state of the app.
                 pushWithReloadByReturnFood(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.check_box_outlined),
+              title: Text(
+                'Login',
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      title: Text("ログインボーナス"),
+                      content: Text("ログイン〇日目"),
+                      actions: <Widget>[
+                        // ボタン領域
+                        FlatButton(
+                          child: Text("エサをもらう"),
+                          onPressed: () => comparisonTime(),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             ),
           ],
@@ -327,13 +342,71 @@ class MemoListState extends State<MemoList> {
       color = prefs.getInt('characterCount') ?? 1;
     });
   }
+
   // キャラ色保存
   void setCharacter() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('characterCount', color);
   }
 
+  // ログインボーナス時間読み込み
+  void _getTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      beforeTime = prefs.getInt('BeforeTime') ?? 1;
+    });
+  }
 
+  // ログインボーナス時間保存
+  void setTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('BeforeTime', beforeTime);
+  }
+
+  // ログインボーナス時間比較
+  void comparisonTime() {
+    if ((int.parse(nowTime) > beforeTime)) {
+      beforeTime = int.parse(nowTime);
+      setTime();
+      lvFood++;
+      setLvFood();
+      Navigator.pop(context);
+    } else {
+      beforeTime = int.parse(nowTime);
+      setTime();
+      showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: Text("ログインボーナス"),
+            content: Text("今日は既にもらっています"),
+            actions: <Widget>[
+              // ボタン領域
+              FlatButton(
+                child: Text("戻る"),
+                onPressed: () =>
+                    Navigator.of(context).popUntil((route) => route.isFirst),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  // エサ読み込み
+  void _getLvFood() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      lvFood = prefs.getInt('LvFood') ?? 0;
+    });
+  }
+  // エサ保存
+  void setLvFood() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('LvFood', lvFood);
+    print(lvFood);
+  }
 }
 
 class MemoList extends StatefulWidget {

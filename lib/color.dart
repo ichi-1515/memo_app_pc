@@ -157,22 +157,18 @@ class ColorState extends State<Color> {
   void colorChange1() {
     setState(() {
       colorSub = 1;
-      print(colorSub);
     });
   }
 
   void colorChange2() {
     setState(() {
       colorSub = 2;
-      print(colorSub);
     });
   }
 
   void characterChange() {
     color = colorSub;
     memoListState.setCharacter();
-    print(color);
-    print("変更しました");
     Navigator.pop(context, true);
   }
 }
