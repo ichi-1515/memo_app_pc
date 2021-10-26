@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'color.dart';
 import 'food.dart';
+import 'name.dart';
 
 class CharacterState extends State<Character> {
   bool _comment = true;
-  int lv = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +88,31 @@ class CharacterState extends State<Character> {
 
                 // FoodLv
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 55, right: 35),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: ButtonTheme(
+                          minWidth: 30,
+                          height: 30,
+                          child: RaisedButton(
+                            color: Colors.grey,
+                            shape: const CircleBorder(),
+                            onPressed: () {
+                              pushWithReloadByReturnName(context);
+                            },
+                            child: Icon(
+                              Icons.drive_file_rename_outline,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
                       Text(
-                        'なまえLv ',
+                        '$petName Lv ',
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
@@ -112,7 +131,7 @@ class CharacterState extends State<Character> {
 
                 // CatImg
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 0),
                   child: AnimatedOpacity(
                     opacity: _comment ? 0.0 : 1.0,
                     duration: Duration(milliseconds: 200),
@@ -171,32 +190,39 @@ class CharacterState extends State<Character> {
 
   void pushWithReloadByReturnColor(BuildContext context) async {
     final result = await Navigator.push(
-      // [*3]
       context,
       new MaterialPageRoute<bool>(
-        // [*4]
         builder: (BuildContext context) => Color(),
       ),
     );
 
     if (result) {
-      // [*5]
       setState(() {});
     }
   }
 
   void pushWithReloadByReturnFood(BuildContext context) async {
     final result = await Navigator.push(
-      // [*3]
       context,
       new MaterialPageRoute<bool>(
-        // [*4]
         builder: (BuildContext context) => Food(),
       ),
     );
 
     if (result) {
-      // [*5]
+      setState(() {});
+    }
+  }
+
+  void pushWithReloadByReturnName(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      new MaterialPageRoute<bool>(
+        builder: (BuildContext context) => Name(),
+      ),
+    );
+
+    if (result) {
       setState(() {});
     }
   }

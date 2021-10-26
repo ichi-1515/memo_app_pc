@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 
 class FoodState extends State<Food> {
-
   MemoListState memoListState = MemoListState();
 
   @override
@@ -71,7 +70,7 @@ class FoodState extends State<Food> {
                       size: 60,
                     ),
                     Text(
-                      "10",
+                      '$lvFood',
                       style: TextStyle(
                         fontSize: 48,
                         color: Colors.white,
@@ -104,6 +103,7 @@ class FoodState extends State<Food> {
                     RaisedButton(
                       onPressed: () {
                         // 全部
+                        allFood();
                       },
                       color: Colors.grey,
                       child: Text(
@@ -122,11 +122,11 @@ class FoodState extends State<Food> {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
                   },
                   color: Colors.redAccent,
                   child: Text(
-                    'キャンセル',
+                    'もどる',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -142,15 +142,144 @@ class FoodState extends State<Food> {
     );
   }
 
+  // ダイアログ(エサなし)
+  void _dialogNotFood() {
+    showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+              opacity: a1.value,
+              child: AlertDialog(
+                shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text('エサがありません'),
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {});
+  }
+
+  // ダイアログ(LvUp)
+  void _dialogLvUp() {
+    showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+              opacity: a1.value,
+              child: AlertDialog(
+                shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text('レベルがあがりました！'),
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {});
+  }
+
   // エサ1個あげる
   void oneFood() {
-    if(lvFood > 0){
-      lvFood--;
-      print(lvFood);
+    if (lvFood > 0) {
+      setState(() {
+        lvFood--;
+        memoListState.setLvFood();
+        lvUpOneFood();
+        _dialogLvUp();
+      });
+    } else {
+      _dialogNotFood();
     }
-    else{
+  }
 
+  // エサ全部あげる
+  void allFood() {
+    if (lvFood > 0) {
+      setState(() {
+        lvUpAllFood();
+        lvFood = 0;
+        memoListState.setLvFood();
+        _dialogLvUp();
+      });
+    } else {
+      _dialogNotFood();
     }
+  }
+
+  // LvUpOneFood
+  void lvUpOneFood() {
+    if (lv < 10) {
+      setState(() {
+        lv++;
+      });
+    } else if ((lv >= 10) && (lv < 20)) {
+      setState(() {
+        lvGauge++;
+      });
+      if (lvGauge == 2) {
+        setState(() {
+          lv++;
+          lvGauge = 0;
+        });
+      }
+    } else if (lv >= 20) {
+      setState(() {
+        lvGauge++;
+      });
+      if (lvGauge == 5) {
+        setState(() {
+          lv++;
+          lvGauge = 0;
+        });
+      }
+    }
+    memoListState.setLv();
+    memoListState.setLvGauge();
+  }
+
+  // LvUpAllFood
+  void lvUpAllFood() {
+    for (var i = 0; i < lvFood; i++) {
+      if (lv < 10) {
+        setState(() {
+          lv++;
+        });
+      } else if ((lv >= 10) && (lv < 20)) {
+        setState(() {
+          lvGauge++;
+        });
+        if (lvGauge == 2) {
+          setState(() {
+            lv++;
+            lvGauge = 0;
+          });
+        }
+      } else if (lv >= 20) {
+        setState(() {
+          lvGauge++;
+        });
+        if (lvGauge == 5) {
+          setState(() {
+            lv++;
+            lvGauge = 0;
+          });
+        }
+      }
+    }
+    memoListState.setLv();
+    memoListState.setLvGauge();
   }
 }
 

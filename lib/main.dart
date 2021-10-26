@@ -27,6 +27,9 @@ class MyApp extends StatelessWidget {
 int color;
 int beforeTime;
 int lvFood;
+int lv;
+int lvGauge;
+String petName;
 
 class MemoListState extends State<MemoList> {
   var _memoList = new List<String>();
@@ -36,7 +39,6 @@ class MemoListState extends State<MemoList> {
   bool _comment = true;
   var nowTime = DateFormat('yyyyMMdd').format(DateTime.now());
 
-
   @override
   void initState() {
     super.initState();
@@ -44,6 +46,9 @@ class MemoListState extends State<MemoList> {
     this._getCharacter();
     this._getTime();
     this._getLvFood();
+    this._getLv();
+    this._getLvGauge();
+    this._getName();
   }
 
   @override
@@ -371,6 +376,7 @@ class MemoListState extends State<MemoList> {
       lvFood++;
       setLvFood();
       Navigator.pop(context);
+      _dialogGetFood();
     } else {
       beforeTime = int.parse(nowTime);
       setTime();
@@ -401,11 +407,77 @@ class MemoListState extends State<MemoList> {
       lvFood = prefs.getInt('LvFood') ?? 0;
     });
   }
+
   // エサ保存
   void setLvFood() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('LvFood', lvFood);
-    print(lvFood);
+  }
+
+  // Lv読み込み
+  void _getLv() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      lv = prefs.getInt('Lv') ?? 0;
+    });
+  }
+
+  // Lv保存
+  void setLv() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('Lv', lv);
+  }
+
+  // LvGauge読み込み
+  void _getLvGauge() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      lvGauge = prefs.getInt('LvGauge') ?? 0;
+    });
+  }
+
+  // LvGauge保存
+  void setLvGauge() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('LvGauge', lvGauge);
+  }
+
+  // Name読み込み
+  void _getName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      petName = prefs.getString('PetName') ?? 'めもすけ';
+    });
+  }
+
+  // Name保存
+  void setName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('PetName', petName);
+  }
+
+  // ダイアログ(エサゲット)
+  void _dialogGetFood() {
+    showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+              opacity: a1.value,
+              child: AlertDialog(
+                shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text('エサをもらいました'),
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {});
   }
 }
 
