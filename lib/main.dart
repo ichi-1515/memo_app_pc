@@ -30,6 +30,7 @@ int lvFood;
 int lv;
 int lvGauge;
 String petName;
+int loginDay;
 
 class MemoListState extends State<MemoList> {
   var _memoList = new List<String>();
@@ -49,6 +50,7 @@ class MemoListState extends State<MemoList> {
     this._getLv();
     this._getLvGauge();
     this._getName();
+    this._getLoginDay();
   }
 
   @override
@@ -137,7 +139,7 @@ class MemoListState extends State<MemoList> {
                   builder: (_) {
                     return AlertDialog(
                       title: Text("ログインボーナス"),
-                      content: Text("ログイン〇日目"),
+                      content: Text("ログイン$loginDay日目"),
                       actions: <Widget>[
                         // ボタン領域
                         FlatButton(
@@ -375,6 +377,8 @@ class MemoListState extends State<MemoList> {
       setTime();
       lvFood++;
       setLvFood();
+      loginDay++;
+      setLoginDay();
       Navigator.pop(context);
       _dialogGetFood();
     } else {
@@ -454,6 +458,20 @@ class MemoListState extends State<MemoList> {
   void setName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('PetName', petName);
+  }
+
+  // Login読み込み
+  void _getLoginDay() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      loginDay = prefs.getInt('LoginDay') ?? 1;
+    });
+  }
+
+  // Login保存
+  void setLoginDay() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('LoginDay', loginDay);
   }
 
   // ダイアログ(エサゲット)
