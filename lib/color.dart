@@ -83,7 +83,26 @@ class ColorState extends State<Color> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // キャラ3
-                      GestureDetector(
+                      if (lv > 1) GestureDetector(
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: Image.asset(
+                            'images/cat_3a.PNG',
+                            height: 250,
+                            width: 250,
+                          ),
+                        ),
+                        onTap: () {
+                          // 色変更
+                          colorChange3();
+                        },
+                      ),
+                      if (lv < 1) GestureDetector(
                         child: Container(
                           width: 150,
                           height: 150,
@@ -102,7 +121,110 @@ class ColorState extends State<Color> {
                         },
                       ),
                       // キャラ4
-                      GestureDetector(
+                      if (lv > 4) GestureDetector(
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: Image.asset(
+                            'images/cat_4a.PNG',
+                            height: 250,
+                            width: 250,
+                          ),
+                        ),
+                        onTap: () {
+                          // 色変更
+                          colorChange4();
+                        },
+                      ),
+                      if (lv < 4) GestureDetector(
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: Image.asset(
+                            'images/hatena.PNG',
+                            height: 250,
+                            width: 250,
+                          ),
+                        ),
+                        onTap: () {
+                          // 色変更
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // キャラ5
+                      if (lv > 7) GestureDetector(
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: Image.asset(
+                            'images/cat_5a.PNG',
+                            height: 250,
+                            width: 250,
+                          ),
+                        ),
+                        onTap: () {
+                          // 色変更
+                          colorChange5();
+                        },
+                      ),
+                      if (lv < 7) GestureDetector(
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: Image.asset(
+                            'images/hatena.PNG',
+                            height: 250,
+                            width: 250,
+                          ),
+                        ),
+                        onTap: () {
+                          // 色変更
+                        },
+                      ),
+                      // キャラ6
+                      if (lv > 14) GestureDetector(
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: Image.asset(
+                            'images/cat_6a.PNG',
+                            height: 250,
+                            width: 250,
+                          ),
+                        ),
+                        onTap: () {
+                          // 色変更
+                          colorChange4();
+                        },
+                      ),
+                      if (lv < 14) GestureDetector(
                         child: Container(
                           width: 150,
                           height: 150,
@@ -163,6 +285,30 @@ class ColorState extends State<Color> {
   void colorChange2() {
     setState(() {
       colorSub = 2;
+    });
+  }
+
+  void colorChange3() {
+    setState(() {
+      colorSub = 3;
+    });
+  }
+
+  void colorChange4() {
+    setState(() {
+      colorSub = 4;
+    });
+  }
+
+  void colorChange5() {
+    setState(() {
+      colorSub = 5;
+    });
+  }
+
+  void colorChange6() {
+    setState(() {
+      colorSub = 6;
     });
   }
 
